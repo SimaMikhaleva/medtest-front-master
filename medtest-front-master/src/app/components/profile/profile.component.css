@@ -1,0 +1,164 @@
+.trainInner {
+    height: 80px;
+    border-radius: 15px;
+    background: #69C2DC;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: x-large;
+    padding-inline: 20px;
+    transition: .4s;
+}
+
+.trainElem {
+    width: 50%;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.trainInner:hover {
+    transition: .4s;
+    background: #57a6be;
+}
+
+#trainsList {
+    overflow: auto;
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.questionBlock {
+    overflow: auto;
+    height: 90%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding-top: 25px;
+}
+
+.questionBlock h2 {
+    text-transform: uppercase;
+}
+
+.questionBlock hr {
+    border: 1px solid; 
+    width: 15%;
+}
+
+.BottomBlock {
+    background-color: #EFF1F4;
+    height: 80%;
+    min-width: 1070px;
+}
+
+#themesDataList {
+    width: 90%;
+    overflow: auto;
+}
+
+.themesElem {
+    height: 110px;
+    border-block: 1px solid #ccc;
+    margin-bottom: -1px;
+    padding-top: 20px;
+    padding-left: 30px;
+    transition: .4s;
+}
+
+
+.themesElem:hover {
+    background-color: rgb(245, 245, 245);
+    transition: .4s;
+}
+
+
+#ticketsDataList {
+    width: 90%;
+}
+
+.ticketNum {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.ticketsElem {
+    display: flex;
+    background-color: #D9D9D980;
+    height: 70px;
+    margin-bottom: 20px;
+    align-items: center;
+    cursor: pointer;
+    transition: .4s;
+    width: 100%;
+}
+
+.ticketsElem:hover {
+    background-color: #b1b1b180;
+    transition: .4s;
+}
+
+.ticketStatusColorNum1 {
+    background-color: #8f8f8f;
+}
+.ticketStatusColorNum2 {
+    background-color: #3b986d;
+}
+.ticketStatusColorNum3 {
+    background-color: #ca6d6d;
+}
+
+.ticketStatusColorText1 {
+    color: #3b986d;
+}
+.ticketStatusColorText2 {
+    color: #ca6d6d;
+}
+
+.prgrs {
+    transition: 1s;
+}
+
+#admFragment {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+#leftFragment {
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    min-width: 550px;
+}
+
+#rightFragment {
+    width: 49%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    min-width: 550px;
+}

@@ -1,0 +1,17 @@
+<div class="container-fluid d-flex justify-content-around align-items-center hdr">
+    <nav class="navbar w-100">
+        <a class="navbar-brand" href="/">
+            <img src="https://img.icons8.com/ios-glyphs/30/null/test-results.png" alt="" width="30" height="30" class="d-inline-block align-text-top">
+            МЕД-ТЕСТ
+        </a>
+        <div *ngIf="authService.isUserLoggedIn()">
+            <a class="navbar-brand" href="/profile">
+                <img src="https://img.icons8.com/material-outlined/24/null/user-male-circle.png" alt="" width="30" height="30" class="d-inline-block">
+            </a>
+            <a class="navbar-brand" (click)="logout()" href="#">
+                <img src="https://img.icons8.com/ios-glyphs/30/null/exit-sign.png" alt="" width="30" height="30" class="d-inline-block">
+            </a>
+        </div>
+    </nav>
+</div>
+<router-outlet></router-outlet>

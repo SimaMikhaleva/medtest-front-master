@@ -1,0 +1,17 @@
+<div class="container-fluid d-flex flex-column justify-content-center align-items-center h-100">
+    <div class="d-flex justify-content-center align-items-center flex-column mb-5 w-25">
+        <h1>МЕД-ТЕСТ</h1>
+        <hr style="border: 1px solid; width: 50%;">
+        <h2>РЕГИСТРАЦИЯ</h2>
+    </div>
+    <div class="container d-flex justify-content-center align-items-center" style="background-color: white; width:auto; border-radius: 10px; padding: 40px;">
+        <form class="d-flex flex-column" style="width: 100%;" [formGroup] = "formRegister" (ngSubmit) = "auth()" method = "POST" ngNativeValidate>
+            <input class="inpt" type="text" placeholder="Имя" formControlName="name" required>
+            <input class="inpt" type="text" placeholder="Логин" formControlName="login" required>
+            <input class="inpt" type="password" placeholder="Пароль" formControlName="password" minlength="8" maxlength="20" required>
+            <input class="inpt" type="password" placeholder="Повторить пароль" formControlName="passwordAccept" minlength="8" maxlength="20" required>
+            <button class="inpt btn-reg-log">Зарегистрироваться</button>
+            <span *ngIf="hasError" class="alert alert-warning" role="alert">{{errorMsg}}</span>
+        </form>
+    </div>
+</div>

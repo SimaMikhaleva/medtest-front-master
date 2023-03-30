@@ -1,0 +1,186 @@
+<div *ngIf="user" class="container-fluid d-flex flex-column justify-content-center align-items-center"
+    style="padding: 0; height: 100%; min-height: 500px;">
+
+    <ng-container *ngIf="user.roles[0].systemName == 'ADMIN'">
+        <div id="admFragment">
+            <div id="leftFragment">
+                <div style="color: #BABABD;margin-bottom: 30px;margin-top: 30px;">Статистика по последним прохождениям:</div>
+                <div style="min-height: 120px; min-height: 120px;width: 100%;display: flex;justify-content: center;">
+                    <div id="ticketsDataList">
+                        <div *ngIf="statList && statList.length == 0"
+                            style="color: #BABABD;margin-bottom: 30px;text-align: center;">Результатов пока нет.. </div>
+                        <div *ngFor="let t of statList; let i = index" class="ticketsElem">
+                            <span *ngIf="t.errorCount == 0" class="ticketNum ticketStatusColorNum2">{{t.id}}</span>
+                            <span *ngIf="t.errorCount != 0" class="ticketNum ticketStatusColorNum3">{{t.id}}</span>
+                            <div style="width: 100%;display: flex;justify-content: space-between;font-size: x-large;">
+                                <span *ngIf="t.name != null" style="padding-left: 15px;">{{t.name}}</span>
+                                <span *ngIf="t.errorCount!= null" style="padding-left: 15px;">Ошибок:{{t.errorCount}}</span>
+                                <span *ngIf="t.lastPass != null" style="padding-left: 15px;">{{fancyTimeFormat(t.lastPass)}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="rightFragment">
+                <div style="color: #BABABD;margin-bottom: 30px;margin-top: 30px;">Конструктор билетов:</div>
+                <button type="button" class="btn btn-outline-primary btn-sm" style="align-self: flex-start;" (click)="createTicket()">Создать билет</button>
+                <div class="w-100" id="ticketsBlock">
+                    <ngb-accordion [closeOthers]="true" activeIds="static-0">
+                        <ngb-panel *ngFor="let t of ticketsList; let i = index" id="static-{{i}}" title="{{'Билет ' + t.id}}">
+                            <ng-template ngbPanelContent>
+                                Вопросы:
+                                <ngb-accordion [closeOthers]="true">
+                                    <ngb-panel *ngFor="let q of t.questions; let j = index" title="{{q.text}}">
+                                        <ng-template ngbPanelContent>
+                                            Ответы: 
+                                            <ngb-accordion [closeOthers]="true">
+                                                <ngb-panel *ngFor="let a of q.answers; let k = index" title="{{a.correct ? a.text + ' - ' + 'Верный' : a.text + ' - ' + 'Неверный'}}">
+                                                    <ng-template ngbPanelContent>
+                                                        <div style="margin-top: 10px;">
+                                                            <button type="button" class="btn btn-outline-danger btn-sm" style="align-self: flex-start; margin-right: 10px;" (click)="deleteAnswer(a.id)">Удалить ответ</button>
+                                                        </div>
+                                                    </ng-template>
+                                                </ngb-panel>
+                                            </ngb-accordion>
+                                            <div style="margin-top: 10px;">
+                                                <button type="button" class="btn btn-outline-danger btn-sm" style="align-self: flex-start; margin-right: 10px;" (click)="deleteQuestion(q.id)">Удалить вопрос</button>
+                                                <button type="button" class="btn btn-outline-primary btn-sm" style="align-self: flex-start;" (click)="createAnswer(q.id)">Создать ответ</button>
+                                            </div>
+                                        </ng-template>
+                                    </ngb-panel>
+                                </ngb-accordion>
+                                <div style="margin-top: 10px;">
+                                    <button type="button" class="btn btn-outline-danger btn-sm" style="align-self: flex-start; margin-right: 10px;" (click)="deleteTicket(t.id)">Удалить билет</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm" style="align-self: flex-start;" (click)="createQuestion(t.id)">Создать вопрос</button>
+                                </div>
+                            </ng-template>
+                        </ngb-panel>
+                    </ngb-accordion>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="user.roles[0].systemName == 'USER'">
+        <div class="container-fluid d-flex justify-content-evenly align-items-center"
+            style="padding: 0 250px; height: 20%; min-height: 120px; min-width: 1070px;">
+            <button class="btn btn-main-grey menu-btn" (click)="test()">Тестирование</button>
+
+            <div class="form-check form-switch" style="transform: scale(3); display: none;">
+                <input class="form-check-input" type="checkbox" role="switch" id="mainSwitch" (click)="swap()">
+            </div>
+
+            <button class="btn btn-main-grey menu-btn" (click)="traning()">Обучение</button>
+        </div>
+        <div *ngIf="this.state?.state == 'TEST'"
+            class="container-fluid d-flex flex-row justify-content-evenly align-items-center BottomBlock">
+            <div>
+                <button class="btn btn-main menu-btn" (click)="tickets()">Билеты</button>
+                <button class="btn btn-main-light menu-btn" (click)="themes()">Темы</button>
+                <button class="btn btn-main-light menu-btn" (click)="errors()">Ошибки</button>
+            </div>
+            <div>
+                <button class="btn btn-main menu-btn" (click)="exam()">Экзамен</button>
+                <button class="btn btn-main-light menu-btn" (click)="marathon()">Марафон</button>
+                <button class="btn btn-main-light menu-btn" (click)="favorites()">Избранное</button>
+            </div>
+        </div>
+        <div *ngIf="this.state?.state == 'TRAIN'"
+            class="container-fluid d-flex flex-row justify-content-evenly align-items-center BottomBlock">
+            <div id="trainsList">
+                <div *ngFor="let t of themesList; let i = index" class="trainElem"><span class="trainInner"
+                        (click)="openThemeLearnModal(t.text, t.id, t.learned)">
+                        <span>{{i+1}}. {{t.title}}</span>
+                        <span style="color: #484848;font-size: large;">{{t.estimatedTime}} мин</span>
+                    </span>
+                    <input class="form-check-input mt-0" onclick="return false;" type="checkbox"
+                        [checked]="t.learned" />
+                </div>
+            </div>
+        </div>
+        <div *ngIf="this.state?.state == 'TICKET'"
+            class="container-fluid d-flex flex-row justify-content-evenly align-items-center BottomBlock">
+            <div id="ticketsList" class="questionBlock">
+                <h2>{{displayState}}</h2>
+                <hr>
+                <div class="progress" style="width: 40%; height: 10px;">
+                    <div [ngStyle]='{ width : progressWidth }'
+                        class="progress-bar progress-bar-striped bg-success prgrs" role="progressbar" style="width: 0%"
+                        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <ng-container *ngIf="progressWidth != '100%'">
+                    <div style="color: #BABABD">начните обучение</div>
+                    <div
+                        style="color: #3A3A3A;text-align: center;margin-block: 10px; font-size: large; margin-bottom: 30px;">
+                        По мере обучения ваш прогресс будет заполняться.
+                        <br>Ваша цель - все билеты должны стать <span style="color: #068A79">зелеными!</span>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="progressWidth == '100%'">
+                    <div style="color: #BABABD;margin-bottom: 30px;">все билеты решены правильно</div>
+                </ng-container>
+                <div id="ticketsDataList">
+                    <div *ngFor="let t of ticketsList; let i = index" class="ticketsElem"
+                        (click)="openTicketTestModal(t)">
+                        <span *ngIf="t.status == 'NOTANSWERED'" class="ticketNum ticketStatusColorNum1">{{t.id}}</span>
+                        <span *ngIf="t.status == 'TRUE'" class="ticketNum ticketStatusColorNum2">{{t.id}}</span>
+                        <span *ngIf="t.status == 'FALSE'" class="ticketNum ticketStatusColorNum3">{{t.id}}</span>
+                        <div style="width: 100%;display: flex;justify-content: space-between;font-size: x-large;">
+                            <span *ngIf="t.lastPass != null"
+                                style="padding-left: 15px;">{{parseDate(t.lastPass)}}</span>
+                            <span *ngIf="t.lastPass == null" style="padding-left: 15px;">Начать!</span>
+                            <span *ngIf="t.status == 'TRUE'" style="padding-right: 15px;"
+                                class="ticketStatusColorText1">Ошибок: 0</span>
+                            <span *ngIf="t.status == 'FALSE'" style="padding-right: 15px;"
+                                class="ticketStatusColorText2">Ошибок: {{t.errorCount}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="this.state?.state == 'THEME'"
+            class="container-fluid d-flex flex-row justify-content-evenly align-items-center BottomBlock">
+            <div id="themesList" class="questionBlock">
+                <h2>{{displayState}}</h2>
+                <hr>
+                <modal-theme-block style="width: 100%;display: flex;overflow:hidden; justify-content: center;"
+                    [themesList]="themesList"></modal-theme-block>
+            </div>
+        </div>
+        <div *ngIf="this.state?.state == 'ERROR'"
+            class="container-fluid d-flex flex-row justify-content-evenly align-items-center BottomBlock">
+            <div id="errorsList" class="questionBlock">
+                <h2>{{displayState}}</h2>
+                <hr>
+                <modal-error-block style="width: 90%; padding: 10px;"
+                    [questionsList]="questionsList"></modal-error-block>
+            </div>
+        </div>
+        <div *ngIf="this.state?.state == 'EXAM'"
+            class="container-fluid d-flex flex-row justify-content-evenly align-items-center BottomBlock">
+            <div id="examsList" class="questionBlock">
+                <h2>{{displayState}}</h2>
+                <hr>
+                <modal-exam-block style="width: 90%; padding: 10px;" [questionsList]="questionsList"></modal-exam-block>
+            </div>
+        </div>
+        <div *ngIf="this.state?.state == 'MARATHON'"
+            class="container-fluid d-flex flex-row justify-content-evenly align-items-center BottomBlock">
+            <div id="marathonsList" class="questionBlock">
+                <h2>{{displayState}}</h2>
+                <hr>
+                <modal-marathon-block style="width: 90%; padding: 10px;"
+                    [questionsList]="questionsList"></modal-marathon-block>
+            </div>
+        </div>
+        <div *ngIf="this.state?.state == 'FAVORITE'"
+            class="container-fluid d-flex flex-row justify-content-evenly align-items-center BottomBlock">
+            <div id="favoritesList" class="questionBlock">
+                <h2>{{displayState}}</h2>
+                <hr>
+                <modal-favorite-block style="width: 90%; padding: 10px;"
+                    [questionsList]="questionsList"></modal-favorite-block>
+            </div>
+        </div>
+    </ng-container>
+</div>

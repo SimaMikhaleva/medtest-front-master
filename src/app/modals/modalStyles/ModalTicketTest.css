@@ -1,0 +1,148 @@
+#qNum {
+    display: flex;
+    width: 50%;
+    justify-content: space-around;
+}
+
+.qNumE {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.qNumE0 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(216, 216, 216);
+}
+.qNumE1 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(213, 169, 255);
+}
+.qNumE2 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(253, 162, 162);
+}
+.qNumE3 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(128, 228, 158);
+}
+
+#ticketModal {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#qText {
+    font-size: xx-large;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#qAnswers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.answer {
+    background-color: #D8E1E0;
+    height: 60px;
+    width: 50%;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    transition: .4s;
+    cursor: pointer;
+}
+
+.answer:hover {
+    background-color: #c0c9c8;
+    transition: .4s;
+}
+
+#qAddToFavorite {
+    cursor: pointer;
+    transition: .4s;
+}
+
+#qAddToFavorite:hover {
+    color: blueviolet;
+    transition: .4s;
+}
+
+#replay {
+    cursor: pointer;
+    transition: .4s;
+}
+
+#replay:hover {
+    color: blueviolet;
+    transition: .4s;
+}
+
+
+#result {
+    cursor: pointer;
+    font-size: 70pt;
+    font-weight: bold;
+}
+
+#resultAdvice {
+    cursor: pointer;
+    font-size: xx-large;
+    margin-bottom: 40px;
+}
+
+#resultBlock {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+#timer {
+    border: 1px solid gray;
+    padding: 5px;
+    border-radius: 10px;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+#remainingTime {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-body {
+    background: white;
+}
+
+.btn-main-grey {
+    background: #e3e3e3;
+}
